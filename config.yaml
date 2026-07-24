@@ -1,0 +1,75 @@
+paths:
+  input_dir: /raid1/rhino/obs_data/rhino-data/data
+  project_dir: /raid1/rhino/rhino_vis
+  plots_root: /raid1/rhino/rhino_vis/plots
+  outputs_root: /raid1/rhino/rhino_vis/outputs
+  logs_dir: /raid1/rhino/rhino_vis/logs
+  state_file: /raid1/rhino/rhino_vis/state/processed_files.json
+
+files:
+  pattern: "*_obs.hdf5"
+  filename_regex: '^(?P<date>\d{4}-\d{2}-\d{2})_(?P<time>\d{2}-\d{2}-\d{2})_obs\.hdf5$'
+
+processing:
+  stable_checks: 6
+  stable_interval_seconds: 20
+
+analysis:
+  settling_seconds: 2.0
+  analysis_band_mhz:
+    minimum: 62.0
+    maximum: 68.0
+
+datasets:
+  waterfall: /sdr/sdr_waterfall
+  frequency: /sdr/sdr_freqs
+  timestamps: /sdr/sdr_times
+  states: /switches/switch_states
+  switch_times: /switches/switch_times
+  temperature_timestamps: /temperatures/temperature_times
+  temperatures: /temperatures/temperatures
+  adc_i_max: /sdr/max_i_adc
+  adc_q_max: /sdr/max_q_adc
+
+momentrfi:
+  enabled: false
+  module: scripts.momentrfi_pipeline
+  function: run_momentrfi_multistage
+
+  state_parameters:
+
+    antenna:
+      sigma1: 4.5
+      deg1_pass1: 6
+      max_iter1: 5
+      one_sided1: true
+
+      sigma2: 3.5
+      deg2_pass2: 8
+      max_iter2: 10
+      one_sided2: true
+
+    load_like:
+      sigma1: 3.5
+      deg1_pass1: 5
+      max_iter1: 5
+      one_sided1: false
+
+      sigma2: 3.0
+      deg2_pass2: 8
+      max_iter2: 10
+      one_sided2: false
+
+    reflective:
+      sigma1: 4.0
+      deg1_pass1: 8
+      max_iter1: 5
+      one_sided1: false
+
+      sigma2: 3.5
+      deg2_pass2: 10
+      max_iter2: 10
+      one_sided2: false
+
+plots:
+  dpi: 180

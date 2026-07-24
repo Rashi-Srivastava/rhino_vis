@@ -1,0 +1,19 @@
+name: rhino-vis
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - numpy
+  - scipy
+  - pandas
+  - matplotlib
+  - h5py
+  - pyyaml
+  - jupyterlab
+  - ipykernel
+  - nbformat
+  - nbclient
+  - watchdog
+  - pip
+  - pip:
+      - papermill
